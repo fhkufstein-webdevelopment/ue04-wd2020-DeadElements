@@ -18,20 +18,51 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
     //TODO start
     //now for the events which should fire:
     //if we leave the password field (focus is lost) - JavaScript Method "onblur" for an input field in our case the field this.passwordField
-    //if we enter the password field (focus is set) - JavaScript Method "onfocus" for an input field - again in our case the field this.passwordField
-    //if we are in the password field an enter text - JavaScript Method "onkeyup" or "onkeup" - again in our case the field this.passwordField
-    //if we try to click the submit button - JavaScript Method "onclick" - in our case this.passwordSubmitButton
+    // var passwordField = document.getElementById("passwordWrapper");
 
-    this.passwordField.onblur = function() {
-        //the keyword "this" is always referring to its context.
-        //onblur is an event which happens in "passwordField" -> so the keyword "this" would refer to the passwordField NOT to our class
-        //therefore we previously saved "this" in a variable called "that"
-        that.check();
+    /*this.passwordField.addEventListener("onblur", function () {
+
+    })*/
+    //this.passwordField.onblur();
+    //this.passwordField.addEventListener('blur', onblur);
+
+
+    //if we leave the password field (focus is lost) - JavaScript Method "onblur" for an input field in our case the field this.passwordField
+    document.getElementById("password").onblur = function() {
+        onblur()
+    };
+    //if we enter the password field (focus is set) - JavaScript Method "onfocus" for an input field - again in our case the field this.passwordField
+    this.passwordField.onfocus = function () {
+        onfocus()
     };
 
-    //TODO implement the other events in the exact same way!
+    //if we are in the password field an enter text - JavaScript Method "onkeyup" or "onkeup" - again in our case the field this.passwordField
+    this.passwordField.onkeyup = function () {
+        onkeyup();
+    };
 
+    //if we try to click the submit button - JavaScript Method "onclick" - in our case this.passwordSubmitButton
+    this.passwordSubmitButton.onclick = function () {
+        onclick();
+    };
 
+    function onfocus() {
+        console.log("onfocus");
+    };
+    function onblur() {
+        console.log("onBlur");
+    };
+    function onkeyup() {
+        alert("Input field on key up.");
+    };
+    function onclick() {
+        alert("Input field on click.");
+        that.check();
+    };
+    /* Ich hoffe ich habe die Aufgabe einigermaßen richtig erfüllt. Ich bin zugegebenerweise ein wenig überforder gewesen und hoffe,
+    dass es zumindest einigermaßen so aussehen soll. Habe zuvor mit EventListener probiert aber hat nicht wie gewünscht funktioniert,
+    Bei einer falschen Umsetzung meinerseits bitte ich um eine kurze Musterlösung falls die smöglich ist.
+     */
 
 
     //TODO end
@@ -69,6 +100,30 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
     This method should return true if the length of passwordField value is greater or equal to this.minLength
      */
     this.checkForLength = function() {
+        var längenVergleich = document.getElementById("password").value;
+        var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+
+        if (längenVergleich.length > 5){
+            this.wrapperField.className = this.warningClass;
+            //document.getElementsByClassName('error feedback').style.display = 'block';
+            // gibt eine class error feedback aber habe es nicht geschafft diese darzustellen
+            if (format.test(längenVergleich)){
+                console.log("Passwort mit Sonderzeichen aber richtig lang");
+                // gibt eine class="warning feedback noSpecialSigns" aber habe es nicht geschafft diese darzustellen
+            }else{
+                console.log("Passwort ohne Sonderzeichen und richtig lang");
+                // gibt eine class="success feedback" aber habe es nicht geschafft diese darzustellen
+            }
+        } else {
+            console.log("Passwort zu kurz");
+            // gibt eine class error feedback aber habe es nicht geschafft diese darzustellen
+        }
+
+        /*Mir ist bewusst, dass es anderst erwünscht war mit einer eigenen Methode die nach Spcial characters überprüft.
+        Ich hatte probleme mit der umsetztung und habe es mit dieser Methode geschafft.
+         */
+
+        //if (this.passwordField)
         //@todo
         //have a look at javascript string methods and properties
         return true; //this needs to be replaced!

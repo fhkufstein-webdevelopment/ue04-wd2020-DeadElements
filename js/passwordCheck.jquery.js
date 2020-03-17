@@ -8,9 +8,9 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
     this.minLength = 8; //this is what we defined and what we need to consider in our length check
 
     //this attributes are set with our constructor
-    this.wrapperField = $(wrapperId);
-    this.passwordField = $(passwordInputFieldId);
-    this.passwordSubmitButton = $(passwordSubmitButtonId);
+    this.wrapperField = $(wrapperId);                       //document.getElementById ersetzt mit $
+    this.passwordField = $(passwordInputFieldId);           //document.getElementById ersetzt mit $
+    this.passwordSubmitButton = $(passwordSubmitButtonId);  //document.getElementById ersetzt mit $
 
 
     var that = this; //a trick because this is a keyword and means different things in a new context! Especially when you work with events or if you call functions outside your class "this" won't mean you!
@@ -46,19 +46,20 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
         //we can only check if every field which with given Id exists
         //one of them would be null if one Id wouldn't exist therefore following statement would fail
         if(this.wrapperField && this.passwordField && this.passwordSubmitButton) {
+
             var longEnough = this.checkForLength();
             var hasSpecialChars = this.checkForSpecialCharacters();
 
             //if it is long enough and has a special character - everything is fine
             if(longEnough && hasSpecialChars) {
-                this.wrapperField.removeClass(this.warningClass + ' ' + this.errorClass).addClass(this.successClass);
-                this.passwordSubmitButton.attr('disabled', false);
+                this.wrapperField.removeClass(this.warningClass + ' ' + this.errorClass).addClass(this.successClass);    // .className = this.successClass; wurde ersetzt
+                this.passwordSubmitButton.attr('disabled', false);      //.disabled = false; ersetzt
             } else if(!hasSpecialChars && longEnough) { //if it is long enough but it has no special character set class warning
-                this.wrapperField.removeClass(this.successClass + ' ' + this.errorClass).addClass(this.warningClass);
-                this.passwordSubmitButton.attr('disabled', true);
+                this.wrapperField.removeClass(this.successClass + ' ' + this.errorClass).addClass(this.warningClass);   // selbe wie 2 Zeilen darüber
+                this.passwordSubmitButton.attr('disabled', true);       // selbes wie zwei zeilen darüber
             } else { //if it is not long enough set class error
-                this.wrapperField.removeClass(this.warningClass + ' ' + this.successClass).addClass(this.errorClass);
-                this.passwordSubmitButton.attr('disabled', true);
+                this.wrapperField.removeClass(this.warningClass + ' ' + this.successClass).addClass(this.errorClass);   //...
+                this.passwordSubmitButton.attr('disabled', true);       //...
             }
 
 
@@ -75,6 +76,7 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
     This method should return true if the length of passwordField value is greater or equal to this.minLength
      */
     this.checkForLength = function() {
+
         //@todo
         //have a look at javascript string methods and properties
         return true; //this needs to be replaced!
